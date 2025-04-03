@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="ExtractRequestPayload">
+    <DisplayName>ExtractRequestPayload</DisplayName>
+    <URIPath name="id">
+        <Pattern>/employee/{id}</Pattern>
+    </URIPath>
+    <FormParam name="client_id">
+        <Pattern>{client_id}</Pattern>
+    </FormParam>
+    <FormParam name="client_secret">
+        <Pattern>{client_secret}</Pattern>
+    </FormParam>
+    <FormParam name="grant_type">
+        <Pattern>{grant_type}</Pattern>
+    </FormParam>
+    <Header name="responseFormatType">
+        <Pattern ignoreCase="true">{responseFormatType}</Pattern>
+    </Header>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</ExtractVariables>

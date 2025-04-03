@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="Assign500ServerError">
+    <DisplayName>Assign500ServerError</DisplayName>
+    <AssignVariable>
+        <Name>errorPayload</Name>
+        <Template>Internal Server Error (HTTP Target Status: {error.status.code})</Template>
+    </AssignVariable>
+    <Set>
+        <Payload contentType="application/json">
+            {
+               "error": "{errorPayload}";
+            }
+        </Payload>
+        <ReasonPhrase>Internal Server Error</ReasonPhrase>
+        <StatusCode>500</StatusCode>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="response"/>
+</AssignMessage>

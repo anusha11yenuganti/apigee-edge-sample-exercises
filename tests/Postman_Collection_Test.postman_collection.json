@@ -1,0 +1,252 @@
+{
+	"info": {
+		"_postman_id": "3c1dedbc-bd88-4ded-a4cc-2cfc19f70995",
+		"name": "Postman_Collection_Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12248392"
+	},
+	"item": [
+		{
+			"name": "OAuth",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{client_secret}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{env}}/employee-management/v1/accesstoken",
+					"protocol": "https",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"employee-management",
+						"v1",
+						"accesstoken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllEmployeesLIst",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{env}}/employee-management/v1/employees",
+					"protocol": "https",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"employee-management",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetEmployeeById",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{env}}/employee-management/v1/employee/1",
+					"protocol": "https",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"employee-management",
+						"v1",
+						"employee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InvalidToken",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{env}}/employee-management/v1/employees",
+					"protocol": "https",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"employee-management",
+						"v1",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BadRequest",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{env}}/employee-management/v1/employee/a",
+					"protocol": "https",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"employee-management",
+						"v1",
+						"employee",
+						"a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateEmployeeRecord",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Akash\",\"salary\":\"123\",\"age\":\"23\"}\t\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{env}}/employee-management/v1/create",
+					"protocol": "https",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"employee-management",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "XMLFormatResponse",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					},
+					{
+						"key": "responseFormatType",
+						"value": "xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Akash\",\"salary\":\"123\",\"age\":\"23\"}\t\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{env}}/employee-management/v1/create",
+					"protocol": "https",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"employee-management",
+						"v1",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

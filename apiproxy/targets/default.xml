@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TargetEndpoint name="default">
+    <FaultRules>
+        <FaultRule name="QuotaVoilation">
+            <Step>
+                <Name>Assign500ServerError</Name>
+            </Step>
+        </FaultRule>
+    </FaultRules>
+    <PreFlow name="PreFlow">
+        <Request/>
+        <Response/>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <Flows/>
+    <HTTPTargetConnection>
+        <URL>https://dummy.restapiexample.com/api/v1</URL>
+    </HTTPTargetConnection>
+</TargetEndpoint>

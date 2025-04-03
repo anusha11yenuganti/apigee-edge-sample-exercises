@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OAuthV2 name="GenerateAccessToken" async="false" continueOnError="true" enabled="true">
+    <Operation>GenerateAccessToken</Operation>
+    <ExpiresIn>1800000</ExpiresIn>
+    <RefreshTokenExpiresIn>28800000</RefreshTokenExpiresIn>
+    <UserName>client_id</UserName>
+    <PassWord>client_secret</PassWord>
+    <SupportedGrantTypes>
+        <GrantType>password</GrantType>
+    </SupportedGrantTypes>
+    <GrantType>request.formparam.grant_type</GrantType>
+    <GenerateResponse enabled="true"/>
+</OAuthV2>

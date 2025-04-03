@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="Assign403AccessDenied">
+    <DisplayName>Assign403AccessDenied</DisplayName>
+    <Set>
+        <Payload contentType="application/json">
+            {
+               "error": "Access Denied"
+            }
+        </Payload>
+        <StatusCode>403</StatusCode>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="response"/>
+</AssignMessage>

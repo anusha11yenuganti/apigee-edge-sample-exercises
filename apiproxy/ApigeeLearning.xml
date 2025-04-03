@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="14" name="ApigeeLearning">
+  <Description>A sample API proxy demonstrating the fundamentals of Apigee policies and their application.</Description>
+    <DisplayName>ApigeeLearning</DisplayName>
+    <Policies>
+        <Policy>AccessControl</Policy>
+        <Policy>Assign400InvalidRequest</Policy>
+        <Policy>Assign401InvalidToken</Policy>
+        <Policy>Assign403AccessDenied</Policy>
+        <Policy>Assign429QuotaVoilation</Policy>
+        <Policy>Assign500ServerError</Policy>
+        <Policy>AssignXMLPayload</Policy>
+        <Policy>ExtractRequestPayload</Policy>
+        <Policy>GenerateAccessToken</Policy>
+        <Policy>JSONThreatProtection</Policy>
+        <Policy>JsValidateRequest</Policy>
+        <Policy>QuotaValidation</Policy>
+        <Policy>RaiseFault</Policy>
+        <Policy>TransformPayloadToXml</Policy>
+        <Policy>VerifyOAuthToken</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>jsc://JsValidateRequest.js</Resource>
+    </Resources>
+    <Spec></Spec>
+    <TargetServers/>
+    <TargetEndpoints>
+        <TargetEndpoint>default</TargetEndpoint>
+    </TargetEndpoints>
+</APIProxy>

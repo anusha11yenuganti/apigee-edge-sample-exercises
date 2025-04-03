@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <FaultRules>
+        <FaultRule name="JSONThreat">
+            <Step>
+                <Name>Assign400InvalidRequest</Name>
+            </Step>
+            <Condition>(jsonattack.failed == true)</Condition>
+        </FaultRule>
+        <FaultRule name="AccessDenied">
+            <Step>
+                <Name>Assign403AccessDenied</Name>
+            </Step>
+            <Condition>(acl.failed  == true)</Condition>
+        </FaultRule>
+        <FaultRule name="QuotaVoilation">
+            <Step>
+                <Name>Assign429QuotaVoilation</Name>
+            </Step>
+            <Condition>(ratelimit.QuotaValidation.failed == true)</Condition>
+        </FaultRule>
+        <FaultRule name="InvalidToken">
+            <Step>
+                <Name>Assign401InvalidToken</Name>
+            </Step>
+            <Condition>(oauthV2.VerifyOAuthToken.failed == true)</Condition>
+        </FaultRule>
+    </FaultRules>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>QuotaValidation</Name>
+            </Step>
+            <Step>
+                <Name>AccessControl</Name>
+            </Step>
+            <Step>
+                <Name>JSONThreatProtection</Name>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <Flows>
+        <Flow name="GetAccessToken">
+            <Description>Generate Access Token</Description>
+            <Request>
+                <Step>
+                    <Name>ExtractRequestPayload</Name>
+                </Step>
+                <Step>
+                    <Name>RaiseFault</Name>
+                    <Condition>(client_id equals null or client_secret equals null or grant_type equals null)</Condition>
+                </Step>
+                <Step>
+                    <Name>GenerateAccessToken</Name>
+                </Step>
+                <Step>
+                    <Name>JsValidateRequest</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/accesstoken") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="GetEmployeesListFlow">
+            <Description>Get list of all employees.</Description>
+            <Request>
+                <Step>
+                    <Name>VerifyOAuthToken</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/employees") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="GetEmployeeByIdFlow">
+            <Description>Get employee by id.</Description>
+            <Request>
+                <Step>
+                    <Name>VerifyOAuthToken</Name>
+                </Step>
+                <Step>
+                    <Name>ExtractRequestPayload</Name>
+                </Step>
+                <Step>
+                    <Name>JsValidateRequest</Name>
+                </Step>
+                <Step>
+                    <Name>RaiseFault</Name>
+                    <Condition>isValidationError == true</Condition>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/employee/{id}") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="CreateEmployeeFlow">
+            <Description>Create new employee record.</Description>
+            <Request>
+                <Step>
+                    <Name>VerifyOAuthToken</Name>
+                </Step>
+                <Step>
+                    <Name>ExtractRequestPayload</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>TransformPayloadToXml</Name>
+                    <Condition>(responseFormatType := "xml")</Condition>
+                </Step>
+                <Step>
+                    <Name>AssignXMLPayload</Name>
+                    <Condition>(responseFormatType := "xml")</Condition>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/create") and (request.verb = "POST")</Condition>
+        </Flow>
+    </Flows>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <HTTPProxyConnection>
+        <BasePath>/employee-management/v1</BasePath>
+        <VirtualHost>dev</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="default">
+        <TargetEndpoint>default</TargetEndpoint>
+        <Condition>((proxy.pathsuffix MatchesPath "/employees") or (proxy.pathsuffix MatchesPath "/employee/{id}") or (proxy.pathsuffix MatchesPath "/create"))</Condition>
+    </RouteRule>
+    <RouteRule name="NoRoute">
+        <Condition>(!(proxy.pathsuffix MatchesPath "/employees") and !(proxy.pathsuffix MatchesPath "/employee/{id}") and !(proxy.pathsuffix MatchesPath "/create"))</Condition>
+    </RouteRule>
+</ProxyEndpoint>

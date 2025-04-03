@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<JSONToXML async="false" continueOnError="false" enabled="true" name="TransformPayloadToXml">
+    <DisplayName>TransformPayloadToXml</DisplayName>
+    <OutputVariable>responsePayload</OutputVariable>
+    <Source>response.content</Source>
+</JSONToXML>

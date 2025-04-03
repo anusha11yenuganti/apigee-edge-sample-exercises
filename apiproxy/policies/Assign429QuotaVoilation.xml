@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="Assign429QuotaVoilation">
+    <DisplayName>Assign429QuotaVoilation</DisplayName>
+    <Set>
+        <Payload contentType="application/json">
+            {
+               "error": "Exceeded max api call quota."
+            }
+        </Payload>
+        <StatusCode>429</StatusCode>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="response"/>
+</AssignMessage>
